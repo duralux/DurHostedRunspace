@@ -161,7 +161,7 @@ namespace DurHostedRunspace
         {
           bool constant = parameter.Key.StartsWith("!");
           string name = parameter.Key.StartsWith("!") ?
-            parameter.Key.Substring(1, parameter.Key.Length - 1) : parameter.Key;
+            parameter.Key[1..] : parameter.Key;
 
           iss.Variables.Add(new SessionStateVariableEntry(name, parameter.Value, null, GetScopedItemOptions(constant, false)));
         }
@@ -249,7 +249,6 @@ namespace DurHostedRunspace
 
       if (this.RSLogType == RSLogType.Direct)
       {
-
         this._logger?.Log(logLevel, Convert.ToString(data));
       }
       else

@@ -16,7 +16,7 @@ namespace DurHostedRunspace
     private readonly List<string> _modules;
     
     private HostedRunspace? _hostedRunspace;
-    private HostedRunspacePool? _hostedRunspacePool;
+    private readonly HostedRunspacePool? _hostedRunspacePool;
 
     public bool IsPool => this._settings.MaxConcurrency > 1;
 
@@ -32,16 +32,6 @@ namespace DurHostedRunspace
       string? hostApp = HostedRunspace.GetDefaultHostApp();
 
       this._modules ??= new List<string>();
-      //if (this._settings.CommonScripts != null)
-      //{
-      //  this._modules.AddRange(System.IO.Directory.GetFiles(this._settings.CommonScripts,
-      //    "*.ps1", System.IO.SearchOption.AllDirectories));
-      //}
-      //if (this._settings.UserScripts != null)
-      //{
-      //  this._modules.AddRange(System.IO.Directory.GetFiles(this._settings.UserScripts,
-      //    "*.ps1", System.IO.SearchOption.TopDirectoryOnly));
-      //}
 
       foreach(var scriptPath in this._settings.Scripts)
       {
