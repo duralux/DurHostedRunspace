@@ -392,10 +392,7 @@ namespace DurHostedRunspace
       this._ps.AddCommand(command);
       if (parameters != null && parameters.Count > 0)
       {
-        var pf = GetParametersFromFunction(command);
-        if (pf == null)
-        { throw new CommandNotFoundException(command); }
-
+        var pf = GetParametersFromFunction(command) ?? throw new CommandNotFoundException(command);
         var parametersFiltered = parameters
           .Where(p => p.Value != null!)
           .Where(p => pf.ContainsKey(p.Key) &&
