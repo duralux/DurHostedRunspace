@@ -15,10 +15,6 @@ namespace DurHostedRunspace
     #region Properties
 
     public List<string> Scripts { get; set; }
-    [Obsolete]
-    public string? CommonScripts { get; set; }
-    [Obsolete]
-    public string? UserScripts { get; set; }
 
     [Range(1, 64)]
     public int MaxConcurrency { get; set; } = 1;

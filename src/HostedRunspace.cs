@@ -161,7 +161,7 @@ namespace DurHostedRunspace
         {
           bool constant = parameter.Key.StartsWith("!");
           string name = parameter.Key.StartsWith("!") ?
-            parameter.Key.Substring(1, parameter.Key.Length - 1) : parameter.Key;
+            parameter.Key[1..] : parameter.Key;
 
           iss.Variables.Add(new SessionStateVariableEntry(name, parameter.Value, null, GetScopedItemOptions(constant, false)));
         }
@@ -249,7 +249,6 @@ namespace DurHostedRunspace
 
       if (this.RSLogType == RSLogType.Direct)
       {
-
         this._logger?.Log(logLevel, Convert.ToString(data));
       }
       else
@@ -393,10 +392,7 @@ namespace DurHostedRunspace
       this._ps.AddCommand(command);
       if (parameters != null && parameters.Count > 0)
       {
-        var pf = GetParametersFromFunction(command);
-        if (pf == null)
-        { throw new CommandNotFoundException(command); }
-
+        var pf = GetParametersFromFunction(command) ?? throw new CommandNotFoundException(command);
         var parametersFiltered = parameters
           .Where(p => p.Value != null!)
           .Where(p => pf.ContainsKey(p.Key) &&
