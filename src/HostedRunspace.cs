@@ -342,9 +342,6 @@ namespace DurHostedRunspace
           }, cancellationToken);
         }
 
-
-
-
         return pipelineObjects?.Select(p => p?.BaseObject);
       }
       catch

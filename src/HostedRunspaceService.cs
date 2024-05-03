@@ -60,7 +60,7 @@ namespace DurHostedRunspace
         logger.LogInformation(log.ToString().Trim());
       }
 
-      System.Threading.Thread.Sleep(5000);
+      System.Threading.Thread.Sleep(1000);
 
       if (!this.IsPool)
       {
