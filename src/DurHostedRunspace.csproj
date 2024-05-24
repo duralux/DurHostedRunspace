@@ -8,8 +8,8 @@
     <Product>DurHostedRunspace</Product>
     <PackageId>DurHostedRunspace</PackageId>
     <NoWarn>NU1701,CA2254</NoWarn>
-    <RuntimeIdentifier>win10-x64</RuntimeIdentifier>
-    <PublishIdentifier>win10-x64</PublishIdentifier>
+    <!--<RuntimeIdentifier>win10-x64</RuntimeIdentifier>-->
+    <!--<PublishIdentifier>win10-x64</PublishIdentifier>-->
     <PlatformTarget>x64</PlatformTarget>
     <Platforms>x64</Platforms>
   </PropertyGroup>

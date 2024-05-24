@@ -65,14 +65,14 @@ namespace DurHostedRunspace
       if (!this.IsPool)
       {
         this._hostedRunspace = new HostedRunspace(
-          this._settings.Parameters, this._modules, 
+          this._settings.GetParameters(), this._modules, 
           logger, this._settings.RSLogType, this._settings.LogSeparator,
           hostApp, System.Text.Encoding.UTF8, false);
       }
       else
       {
         this._hostedRunspacePool = new HostedRunspacePool(1, this._settings.MaxConcurrency,
-          this._settings.Parameters, this._modules,
+          this._settings.GetParameters(), this._modules,
           logger, this._settings.RSLogType, this._settings.LogSeparator,
           hostApp, System.Text.Encoding.UTF8, false);
       }
@@ -94,7 +94,7 @@ namespace DurHostedRunspace
         if (this._hostedRunspace == null || this._hostedRunspace.IsDisposed)
         {
           this._hostedRunspace = new HostedRunspace(
-            this._settings.Parameters, this._modules,
+            this._settings.GetParameters(), this._modules,
             logger, this._settings.RSLogType, this._settings.LogSeparator,
             null, System.Text.Encoding.UTF8, false);
         }
@@ -116,7 +116,7 @@ namespace DurHostedRunspace
         if (this._hostedRunspace == null || this._hostedRunspace.IsDisposed)
         {
           this._hostedRunspace = await Task.Run(() => new HostedRunspace(
-            this._settings.Parameters, this._modules,
+            this._settings.GetParameters(), this._modules,
             logger, this._settings.RSLogType, this._settings.LogSeparator,
             null, System.Text.Encoding.UTF8, false));
         }

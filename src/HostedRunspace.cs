@@ -101,7 +101,7 @@ namespace DurHostedRunspace
 
 
     public HostedRunspace(
-      Dictionary<string, string>? parameters = null!, IEnumerable<string>? modulesToLoad = null!, 
+      Dictionary<string, object?>? parameters = null!, IEnumerable<string>? modulesToLoad = null!, 
       ILogger? logger = null!, RSLogType rSLogType = RSLogType.Bulk, string logSeparator = "",
       string? hostApp = null!, Encoding encoding = null!, bool restricted = false)
     {
@@ -138,7 +138,7 @@ namespace DurHostedRunspace
 
 
     internal static InitialSessionState GetInitialSessionState(bool restricted,
-      Dictionary<string, string>? parameters = null!, IEnumerable<string>? modulesToLoad = null)
+      Dictionary<string, object?>? parameters = null!, IEnumerable<string>? modulesToLoad = null)
     {
       var iss = InitialSessionState.CreateDefault();
       iss.ExecutionPolicy = restricted ?

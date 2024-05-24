@@ -50,7 +50,7 @@ namespace DurHostedRunspace
     #region Initialization
 
     public HostedRunspacePool(int minRunspaces = 1, int maxRunspaces = 5, 
-      Dictionary<string, string>? parameters = null!, IEnumerable<string>? modulesToLoad = null!, 
+      Dictionary<string, object?>? parameters = null!, IEnumerable<string>? modulesToLoad = null!, 
       ILogger? logger = null!, RSLogType rSLogType = RSLogType.Bulk, string logSeparator = "",
       string? hostApp = null!, Encoding encoding = null!, bool restricted = false)
     {
