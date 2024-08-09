@@ -31,7 +31,7 @@ namespace DurHostedRunspace
       this._settings = settings.Value;
       string? hostApp = HostedRunspace.GetDefaultHostApp();
 
-      this._modules ??= new List<string>();
+      this._modules ??= [];
 
       foreach(var scriptPath in this._settings.Scripts)
       {

@@ -127,13 +127,11 @@ namespace DurHostedRunspace
       SetVariable(HOST_APP, hostApp ?? GetDefaultHostApp(), true, true);
 
       this.MaxLogLevel = LogLevel.Trace;
-#pragma warning disable CS8622 
       this._ps.Streams.Debug.DataAdded += LogMessage<DebugRecord>;
       this._ps.Streams.Verbose.DataAdded += LogMessage<VerboseRecord>;
       this._ps.Streams.Information.DataAdded += LogMessage<InformationRecord>;
       this._ps.Streams.Warning.DataAdded += LogMessage<WarningRecord>;
       this._ps.Streams.Error.DataAdded += LogMessage<ErrorRecord>;
-#pragma warning restore CS8622
     }
 
 
@@ -159,8 +157,8 @@ namespace DurHostedRunspace
       {
         foreach (var parameter in parameters)
         {
-          bool constant = parameter.Key.StartsWith("!");
-          string name = parameter.Key.StartsWith("!") ?
+          bool constant = parameter.Key.StartsWith('!');
+          string name = parameter.Key.StartsWith('!') ?
             parameter.Key[1..] : parameter.Key;
 
           iss.Variables.Add(new SessionStateVariableEntry(name, parameter.Value, null, GetScopedItemOptions(constant, false)));
@@ -222,8 +220,11 @@ namespace DurHostedRunspace
       this._ps.Streams.Error.Clear();
     }
 
-    private void LogMessage<T>(object sender, DataAddedEventArgs e)
+    private void LogMessage<T>(object? sender, DataAddedEventArgs e)
     {
+      if (sender == null)
+      { return; }
+
       var data = ((PSDataCollection<T>)sender)![e.Index];
       var logLevel = LogLevel.Trace;
       if (typeof(T) == typeof(VerboseRecord))
@@ -329,8 +330,7 @@ namespace DurHostedRunspace
           pipelineObjects = await Task.Run<PSDataCollection<PSObject>>(() =>
           {
             var invocation = this._ps.BeginInvoke();
-            WaitHandle.WaitAny(new[] {
-              invocation.AsyncWaitHandle, cancellationToken.WaitHandle });
+            WaitHandle.WaitAny([invocation.AsyncWaitHandle, cancellationToken.WaitHandle]);
           
             if (cancellationToken.IsCancellationRequested)
             {

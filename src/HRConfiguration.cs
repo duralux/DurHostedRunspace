@@ -31,9 +31,9 @@ namespace DurHostedRunspace
 
     public HRConfiguration()
     {
-      this.Scripts = new List<string>();
-      this.Parameters = new Dictionary<string, string>();
-      this.ObjParameters = new Dictionary<string, object?>();
+      this.Scripts = [];
+      this.Parameters = [];
+      this.ObjParameters = [];
       this.LogSeparator = String.Empty;
 
       this.RSLogType = RSLogType.Bulk;
