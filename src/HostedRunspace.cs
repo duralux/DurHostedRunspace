@@ -245,7 +245,8 @@ namespace DurHostedRunspace
       }
       else if (typeof(T) == typeof(ErrorRecord))
       {
-        logLevel = LogLevel.Error;
+        logLevel = data is ErrorRecord errorRecord && IsCommandNotFound(errorRecord) ?
+          LogLevel.Critical : LogLevel.Error;
       }
 
       if (this.RSLogType == RSLogType.Direct)
@@ -274,6 +275,27 @@ namespace DurHostedRunspace
       {
         this._logger?.Log(this.MaxLogLevel, this.Log?.ToString().Trim());
       }
+    }
+
+
+    /// <summary>
+    /// Determines whether the given error record was caused by a PowerShell command or
+    /// function that could not be found. These errors are treated as critical because a
+    /// missing command usually indicates a deployment or configuration problem rather than
+    /// a recoverable runtime error.
+    /// </summary>
+    private static bool IsCommandNotFound(ErrorRecord errorRecord)
+    {
+      if (errorRecord.Exception is CommandNotFoundException)
+      { return true; }
+
+      if (errorRecord.FullyQualifiedErrorId?.StartsWith(
+        nameof(CommandNotFoundException), StringComparison.OrdinalIgnoreCase) == true)
+      { return true; }
+
+      return errorRecord.CategoryInfo?.Category == ErrorCategory.ObjectNotFound &&
+        string.Equals(errorRecord.CategoryInfo.Reason, nameof(CommandNotFoundException),
+          StringComparison.OrdinalIgnoreCase);
     }
 
 
